@@ -2,18 +2,18 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import threading, time
-# from mysite.models import *
-def update_data():
-    pass
-#     while True:
-#         Stock_name1 = Stock_name.objects.create(name="元大台灣50", stock_id="0050")
-#         time.sleep(10)
+import threading, time, requests
+
+def view_update():
+    while True:
+        requests.get("127.0.0.1:8000/update")
+        # delay one day
+        time.sleep(24 * 60 * 60)
 
 
 def main():
     """Run administrative tasks."""
-    threading.Thread(target=update_data, args=(), name="get new data").start()
+    # threading.Thread(target=update, args=(), name="get new data").start()
     print("start thread")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'python_final.settings')
     try:
