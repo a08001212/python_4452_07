@@ -2,11 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-import threading, time, requests
+import time, requests
 
 def view_update():
     while True:
-        requests.get("127.0.0.1:8000/update")
+        requests.get("http://127.0.0.1:8000/update")
         # delay one day
         time.sleep(24 * 60 * 60)
 
