@@ -13,4 +13,5 @@ class Daily_transaction_information(models.Model):
     HighestPrice = models.FloatField(default=0.0)
     LowestPrice = models.FloatField(default=.0)
     ClosingPrice = models.FloatField(default=.0) #收盤
+    # MA5 MA10 MA20
 
