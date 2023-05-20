@@ -2,10 +2,19 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import threading, time
+# from mysite.models import *
+def update_data():
+    pass
+#     while True:
+#         Stock_name1 = Stock_name.objects.create(name="元大台灣50", stock_id="0050")
+#         time.sleep(10)
 
 
 def main():
     """Run administrative tasks."""
+    threading.Thread(target=update_data, args=(), name="get new data").start()
+    print("start thread")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'python_final.settings')
     try:
         from django.core.management import execute_from_command_line
