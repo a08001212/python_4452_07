@@ -33,10 +33,10 @@ def main():
     execute_from_command_line(sys.argv)
 
 
+th = threading.Thread(target=view_update,  name="every_day_update_data")
+print("start thread")
+th.start()
 
 if __name__ == '__main__':
-    th = threading.Thread(target=view_update,  name="every_day_update_data")
-    # print("start thread")
-    th.start()
 
     main()
