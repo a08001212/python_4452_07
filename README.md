@@ -17,7 +17,10 @@ python manage.py runserver
 ```
 
 <hr>
-<a href = "https://docs.google.com/presentation/d/1OEBRdMucaJTpdA3fvYH1YB97jrlw4BZLTMsOxadRy3E/edit#slide=id.g147233e3494_0_7
+<a href = "https://docs.google.com/presentation/d/1OEBRdMucaJTpdA3fvYH1YB97jrlw4BZLTMsOxadRy3E/edit?usp=sharing
+">總彙整報告.pptx</a>
+<br>
+<a href = "https://docs.google.com/presentation/d/1mOifrs_VvX0m9ftNtuVnAU3RFvNgXCnZDj0dEveE-gc/edit#slide=id.g147233e3494_0_7
 ">2023.05.15_進度報告.pptx</a>
 <br>
 <a href = "https://docs.google.com/presentation/d/1EWqiuFph2sG-tbBGoQBU1l9pvIQ2xDvmWCeOBAhNPvI/edit?usp=sharing
