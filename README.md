@@ -25,3 +25,14 @@ python manage.py runserver
 <br>
 <a href = "https://docs.google.com/presentation/d/1EWqiuFph2sG-tbBGoQBU1l9pvIQ2xDvmWCeOBAhNPvI/edit?usp=sharing
 ">2023.05.22_進度報告.pptx</a>
+
+
+
+
+
+<p hidden>
+cd ..
+venv/Scripts/activate
+cd .\python_4452_07\
+python .\manage.py runserver
+</p>
