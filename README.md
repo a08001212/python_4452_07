@@ -25,7 +25,7 @@
 [//]: # (</pre>)
 ```shell
 # start server
-git clone git@github.com:a08001212/python_4452_07.git
+git clone https://github.com/a08001212/python_4452_07.git
 cd python_4452_07
 pip install -r requirements.txt
 python manage.py runserver
