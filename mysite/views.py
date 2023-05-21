@@ -6,10 +6,11 @@ from django.http import HttpResponse
 from mysite.models import *
 # Create your views here.
 def index(request):
+    stocks = Stock_name.objects.all()
     return render(request, 'index.html', locals())
 
 def about(request):
-    stock_ids = []
+    
     return render(request, 'about.html', locals())
 
 def update(request):
@@ -54,3 +55,6 @@ def update(request):
     #
     # print("update stock_name")
     return HttpResponse("<h1>updte stock data</h1>")
+
+def test(request):
+    return render(request, 'test.html', locals())
