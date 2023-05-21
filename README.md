@@ -6,7 +6,7 @@
 * 王欽弘
 * 詹前淳
 <hr>
-<p white-space: pre-wrap>Start
+<p style="white-space: pre-wrap;">Start
 cd..
 venv/Scripts/activate
 cd .\python_4452_07\
