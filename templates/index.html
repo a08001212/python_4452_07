@@ -44,10 +44,13 @@
                                 <div class="book_tabel_item">
                                     <div class="input-group">
                                         <select class="wide">
-                                            <option data-display="Adult">Adult</option>
-                                            <option value="1">Old</option>
-                                            <option value="2">Younger</option>
+                                            <option data-display="stock_id">股票代碼</option>
+                                            <option value="2330">2330 台積電</option>
+                                            
                                             <option value="3">Potato</option>
+                                            {% for stock_id in stock_ids%}
+                                            <option value="2">test</option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="input-group">
