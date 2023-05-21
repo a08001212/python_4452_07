@@ -7,8 +7,8 @@ class Stock_name(models.Model):
 
 
 class Daily_transaction_information(models.Model):
-    stock_id = models.ForeignKey(Stock_name, on_delete=models.CASCADE)
-    date = models.DateField()
+    stock_id = models.CharField(max_length=10, default="0")
+    date = models.DateField(auto_now=True)
     TradeVolume = models.IntegerField() #交易量
     HighestPrice = models.FloatField(default=0.0)
     LowestPrice = models.FloatField(default=.0)
