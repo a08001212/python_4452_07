@@ -6,12 +6,31 @@
 * 王欽弘
 * 詹前淳
 <hr>
-<pre>* Start
-cd..
-venv/Scripts/activate
-cd .\python_4452_07\
-python .\manage.py runserver
-</pre>
+
+[//]: # (<pre>* Start)
+
+[//]: # ()
+[//]: # (cd..)
+
+[//]: # ()
+[//]: # (venv/Scripts/activate)
+
+[//]: # ()
+[//]: # (cd .\python_4452_07)
+
+[//]: # ()
+[//]: # (python .\manage.py runserver)
+
+[//]: # ()
+[//]: # (</pre>)
+```shell
+# start server
+git clone https://github.com/a08001212/python_4452_07.git
+cd python_4452_07
+pip install -r requirements.txt
+python manage.py runserver
+```
+
 <hr>
 <a href = "https://docs.google.com/presentation/d/1OEBRdMucaJTpdA3fvYH1YB97jrlw4BZLTMsOxadRy3E/edit#slide=id.g147233e3494_0_7
 ">2023.05.15_進度報告.pptx</a>

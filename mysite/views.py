@@ -24,15 +24,22 @@ def update(request):
             name= r[1][1:-1]
         )
         item.save()
-        # new_data = Daily_transaction_information(
-        #     stock_id=r[0][1:-1],
-        #     TradeVolume = int(r[2][1:-1]),
-        #     HighestPrice=float(r[5][1:-1]),
-        #     LowestPrice=float(r[6][1:-1]),
-        #     ClosingPrice=float(r[7][1:-1]),
-        #     date= datetime.date.today()
-        # )
-        # new_data.save()
+        # no data
+        if r[5] == '""' or r[6] == '""' or r[7] == '""':
+            continue
+        new_data = Daily_transaction_information(
+
+        )
+
+        new_data = Daily_transaction_information(
+            stock_id=r[0][1:-1],
+            TradeVolume = int(r[2][1:-1]),
+            HighestPrice=float(r[5][1:-1]),
+            LowestPrice=float(r[6][1:-1]),
+            ClosingPrice=float(r[7][1:-1]),
+            date= datetime.date.today()
+        )
+        new_data.save()
 
 
     # name_url = "https://openapi.twse.com.tw/v1/opendata/t187ap03_P"
