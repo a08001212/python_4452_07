@@ -6,7 +6,7 @@
 * 王欽弘
 * 詹前淳
 <hr>
-<pre>Start
+<pre>* Start
 cd..
 venv/Scripts/activate
 cd .\python_4452_07\
