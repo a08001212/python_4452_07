@@ -43,23 +43,22 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input list="id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
+                                        <input placeholder="請輸入股票代碼" list="id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
                                         <datalist class="wide" id ="id">
-                                            <option data-display="股票代碼">股票代碼</option>
                                             {% for stock in stocks%}
                                             <option value="{{stock.stock_id}}">{{stock.name}}</option>
                                             {% endfor %}
                                         </datalist>
                                     </div>
                                     <div class="input-group">
-                                        <input placeholder="請輸入你的資金" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
+                                        <input placeholder="請輸入你的資金" min ="0" oninput="if(value<0)value=0" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input placeholder="請輸入你的稅率" step="0.000001" max = "1" min = "0.000001" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
+                                        <input placeholder="請輸入你的稅率" oninput="if(value<0.000001)value=0.000001" oninput="if(value>1)value=1" step="0.000001" max = "1" min = "0.000001" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
                                     </div>
                                     <a class="book_now_btn button_hover" href="#">Book Now</a>
                                 </div>

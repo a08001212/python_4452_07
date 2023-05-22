@@ -17,20 +17,21 @@ def update(request):
 
     url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
     data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
-    Stock_name.objects.all().delete()
+    # Stock_name.objects.all().delete()
     for r in data:
-        item = Stock_name(
-            stock_id=r[0][1:-1],
-            name= r[1][1:-1]
-        )
-        item.save()
+        # item = Stock_name(
+        #     stock_id=r[0][1:-1],
+        #     name= r[1][1:-1]
+        # )
+        # item.save()
+        
         # no data
         if r[5] == '""' or r[6] == '""' or r[7] == '""':
             continue
         new_data = Daily_transaction_information(
 
         )
-
+        
         new_data = Daily_transaction_information(
             stock_id=r[0][1:-1],
             TradeVolume = int(r[2][1:-1]),
