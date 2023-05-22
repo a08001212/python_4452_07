@@ -1,5 +1,5 @@
 import datetime
-
+from mysite.average import  *
 from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
