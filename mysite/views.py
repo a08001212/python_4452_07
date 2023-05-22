@@ -1,9 +1,10 @@
 import datetime
-
+from mysite.average import  *
 from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
+import yfinance
 # Create your views here.
 def index(request):
     stocks = Stock_name.objects.all()
@@ -12,6 +13,22 @@ def index(request):
 def about(request):
     
     return render(request, 'about.html', locals())
+
+def update_history_data():
+    Daily_transaction_information.objects.all().delete()
+    Stock_name.objects.all().delete()
+    url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
+    data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
+    for r in data:
+        item = Stock_name(
+            stock_id=r[0][1:-1],
+            name= r[1][1:-1]
+        )
+        item.save()
+    data = Stock_name.objects.all()
+    # for d in data:
+
+
 
 def update(request):
 
@@ -28,10 +45,14 @@ def update(request):
         # no data
         if r[5] == '""' or r[6] == '""' or r[7] == '""':
             continue
+<<<<<<< HEAD
         new_data = Daily_transaction_information(
 
         )
         
+=======
+
+>>>>>>> 0e90ba2b5c88adee4209b4244334e086ff5019c8
         new_data = Daily_transaction_information(
             stock_id=r[0][1:-1],
             TradeVolume = int(r[2][1:-1]),
