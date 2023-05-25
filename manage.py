@@ -5,16 +5,7 @@ import sys
 import threading
 import time, requests, datetime
 
-<<<<<<< HEAD
-# def view_update()->None:
-#     # waiting for django start website
-#     print("In threading")
-#     time.sleep(5)
-#     while True:
-#         requests.get("http://127.0.0.1:8000/update")
-#         # waiting for one day
-#         time.sleep(24 * 60 * 60)
-=======
+
 def view_update()->None:
     # waiting for django start website
     print("In threading")
@@ -25,7 +16,6 @@ def view_update()->None:
             requests.get("http://127.0.0.1:8000/update")
         # waiting for one day
         time.sleep(24 * 60 * 60)
->>>>>>> 0e90ba2b5c88adee4209b4244334e086ff5019c8
 
 
 
@@ -46,9 +36,9 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-# th = threading.Thread(target=view_update,  name="every_day_update_data")
+th = threading.Thread(target=view_update,  name="every_day_update_data")
 # print("start thread")
-# th.start()
+th.start()
 
 if __name__ == '__main__':
 
