@@ -1,4 +1,5 @@
 import datetime
+import threading
 import time
 
 import pandas as pd
@@ -18,6 +19,12 @@ def about(request):
     return render(request, 'about.html', locals())
 
 def update_history_data(request):
+    th = threading.Thread(target=update_history,  name="update_history")
+    th.start()
+    return HttpResponse("<h1>Updateing history data.</h1>")
+
+
+def update_history():
     Daily_transaction_information.objects.all().delete()
     Stock_name.objects.all().delete()
     Daily_transaction_information.objects.all().delete()
@@ -44,10 +51,6 @@ def update_history_data(request):
             new_item.save()
         print(f"{r[0][1:-1]}.TW update.")
         time.sleep(10)
-
-    return HttpResponse("<h1>Update history data sessful.</h1>")
-
-
 
 def update(request):
 
