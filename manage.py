@@ -38,7 +38,7 @@ def main():
 
 th = threading.Thread(target=view_update,  name="every_day_update_data")
 # print("start thread")
-th.start()
+# th.start()
 
 if __name__ == '__main__':
 

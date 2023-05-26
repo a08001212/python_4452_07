@@ -24,4 +24,5 @@ urlpatterns = [
     path('test/', views.test),
     path('update/', views.update),
     path('admin/', admin.site.urls),
+    path('update_history_data/', views.update_history_data),
 ]

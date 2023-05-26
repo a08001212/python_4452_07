@@ -1,10 +1,13 @@
 import datetime
+import time
+
+import pandas as pd
+import yfinance as yf
 from mysite.average import  *
 from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
-import yfinance
 # Create your views here.
 def index(request):
     stocks = Stock_name.objects.all()
@@ -14,21 +17,35 @@ def about(request):
     
     return render(request, 'about.html', locals())
 
-def update_history_data():
-    pass
-
+def update_history_data(request):
     Daily_transaction_information.objects.all().delete()
     Stock_name.objects.all().delete()
+    Daily_transaction_information.objects.all().delete()
     url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
     data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
+    # get stock name
     for r in data:
         item = Stock_name(
             stock_id=r[0][1:-1],
             name= r[1][1:-1]
         )
         item.save()
-    data = Stock_name.objects.all()
-    # for d in data:
+    for r in data:
+        data = yf.download(f"{r[0][1:-1]}.TW", start="2022-5-1", end=str(datetime.date.today()))
+        for index, row in data.iterrows():
+            new_item = Daily_transaction_information(
+                stock_id=r[0][1:-1],
+                TradeVolume=row[5],
+                date = pd.to_datetime(index).date(),
+                HighestPrice=row[1],
+                LowestPrice=row[2],
+                ClosingPrice=row[3]
+            )
+            new_item.save()
+        print(f"{r[0][1:-1]}.TW update.")
+        time.sleep(10)
+
+    return HttpResponse("<h1>Update history data sessful.</h1>")
 
 
 
