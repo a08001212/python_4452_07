@@ -17,15 +17,16 @@
                 <div class="col-md-3">
                     <h2>請輸入<br> 股票代碼</h2>
                 </div>
-                
                 <div class="col-md-9">
                     <div class="boking_table">
-                        <form class = "row">
+                        <form class="row" method="post">
+                            {% csrf_token %}
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker11'>
-                                            <input name="sDate" required="required" type='text' class="form-control" placeholder="Start Date" />
+                                            <input name="sDate" required="required" type='text' class="form-control"
+                                                placeholder="Start Date" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -33,7 +34,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class='input-group date' id='datetimepicker1'>
-                                            <input name="eDate" required="required" type='text' class="form-control" placeholder="End Date" />
+                                            <input name="eDate" required="required" type='text' class="form-control"
+                                                placeholder="End Date" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -44,22 +46,27 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
-                                        <datalist class="wide" id ="stock_id">
+                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="MyArea"
+                                            type="text" class="col-sm-12 custom-select custom-select-sm"
+                                            style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
+                                        <datalist class="wide" id="stock_id">
                                             {% for stock in stocks%}
                                             <option value="{{stock.stock_id}}">{{stock.name}}</option>
                                             {% endfor %}
                                         </datalist>
                                     </div>
                                     <div class="input-group">
-                                        <input name="fund" required="required" placeholder="請輸入你的資金" min ="0" oninput="if(value<0)value=0" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
+                                        <input name="fund" required="required" placeholder="請輸入你的資金" min="0"
+                                            oninput="if(value<0)value=0" type="number"
+                                            class="col-sm-12 custom-select custom-select-sm"
+                                            style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
-                                    <div class="input-group" style = "height: 15px;"></div>
-                                    <input type ="submit"  placeholder="送出" class="book_now_btn button_hover">
+                                    <div class="input-group" style="height: 15px;"></div>
+                                    <input type="submit" placeholder="送出" class="book_now_btn button_hover">
                                 </div>
                             </div>
                         </form>

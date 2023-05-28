@@ -4,6 +4,7 @@ import os
 import sys
 import threading
 import time, requests, datetime
+
 def view_update()->None:
     # waiting for django start website
     print("In threading")
