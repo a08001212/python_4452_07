@@ -30,7 +30,9 @@ python manage.py runserver
 
 
 
-<!-- cd ..
+<!-- 
+cd ..
 venv/Scripts/activate
 cd .\python_4452_07\
-python .\manage.py runserver -->
+python .\manage.py runserver
+-->

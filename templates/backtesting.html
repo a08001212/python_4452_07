@@ -1,0 +1,72 @@
+{% extends "base/base.html" %}
+{% block content %}
+<!--================Banner Area =================-->
+<section class="banner_area">
+    <div class="booking_table d_flex align-items-center" style="min-height: 450px">
+        <!-- <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="">
+        </div> -->
+        <div class="container">
+            <div class="banner_content text-center">
+                <h2>個股分析</h2>
+            </div>
+        </div>
+    </div>
+    <div class="hotel_booking_area position">
+        <div class="container">
+            <div class="hotel_booking_table">
+                <div class="col-md-3">
+                    <h2>請輸入<br> 股票代碼</h2>
+                </div>
+                
+                <div class="col-md-9">
+                    <div class="boking_table">
+                        <form class = "row">
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker11'>
+                                            <input name="sDate" required="required" type='text' class="form-control" placeholder="Start Date" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input name="eDate" required="required" type='text' class="form-control" placeholder="End Date" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="input-group">
+                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
+                                        <datalist class="wide" id ="stock_id">
+                                            {% for stock in stocks%}
+                                            <option value="{{stock.stock_id}}">{{stock.name}}</option>
+                                            {% endfor %}
+                                        </datalist>
+                                    </div>
+                                    <div class="input-group">
+                                        <input name="fund" required="required" placeholder="請輸入你的資金" min ="0" oninput="if(value<0)value=0" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
+                                    <div class="input-group" style = "height: 15px;"></div>
+                                    <input type ="submit"  placeholder="送出" class="book_now_btn button_hover">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

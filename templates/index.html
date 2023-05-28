@@ -1,79 +1,19 @@
 {% extends "base/base.html" %}
 {% block content %}
 <!--================Banner Area =================-->
-<section class="banner_area">
-    <div class="booking_table d_flex align-items-center" style="min-height: 450px">
-        <!-- <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="">
-        </div> -->
-        <div class="container">
-            <div class="banner_content text-center">
-                <h2>個股分析</h2>
-            </div>
-        </div>
-    </div>
-    <div class="hotel_booking_area position">
-        <div class="container">
-            <div class="hotel_booking_table">
-                <div class="col-md-3">
-                    <h2>請輸入<br> 股票代碼</h2>
-                </div>
-                <div class="col-md-9">
-                    <div class="boking_table">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker11'>
-                                            <input type='text' class="form-control" placeholder="Start Date" />
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" placeholder="End Date" />
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="input-group">
-                                        <input placeholder="請輸入股票代碼" list="id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
-                                        <datalist class="wide" id ="id">
-                                            {% for stock in stocks%}
-                                            <option value="{{stock.stock_id}}">{{stock.name}}</option>
-                                            {% endfor %}
-                                        </datalist>
-                                    </div>
-                                    <div class="input-group">
-                                        <input placeholder="請輸入你的資金" min ="0" oninput="if(value<0)value=0" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
-                                    <div class="input-group">
-                                        <input placeholder="請輸入你的稅率" oninput="if(value<0.000001)value=0.000001" oninput="if(value>1)value=1" step="0.000001" max = "1" min = "0.000001" type="number" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>                            
-                                    </div>
-                                    <a class="book_now_btn button_hover" href="#">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<section class="banner_area blog_banner d_flex align-items-center">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="banner_content text-center">
+            <h4>Dude You’re Getting <br />a Telescope</h4>
+            <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
+            <a href="#" class="btn white_btn button_hover">View More</a>
         </div>
     </div>
 </section>
 <!--================Banner Area =================-->
-
 <!--================ Accomodation Area  =================-->
-<!-- <section class="accomodation_area section_gap">
+<section class="accomodation_area section_gap">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">Hotel Accomodation</h2>
@@ -130,11 +70,11 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!--================ Accomodation Area  =================-->
 
 <!--================ Facilities Area  =================-->
-<!-- <section class="facilities_area section_gap">
+<section class="facilities_area section_gap">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
     </div>
     <div class="container">
@@ -187,11 +127,11 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!--================ Facilities Area  =================-->
 
 <!--================ About History Area  =================-->
-<!-- <section class="about_history_area section_gap">
+<section class="about_history_area section_gap">
     <div class="container">
         <div class="row">
             <div class="col-md-6 d_flex align-items-center">
@@ -208,11 +148,11 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!--================ About History Area  =================-->
 
 <!--================ Testimonial Area  =================-->
-<!-- <section class="testimonial_area section_gap">
+<section class="testimonial_area section_gap">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">Testimonial from our Clients</h2>
@@ -289,11 +229,11 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!--================ Testimonial Area  =================-->
 
 <!--================ Latest Blog Area  =================-->
-<!-- <section class="latest_blog_area section_gap">
+<section class="latest_blog_area section_gap">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">latest posts from blog</h2>
@@ -358,6 +298,6 @@
             </div>
         </div>
     </div>
-</section> -->
+</section>
 <!--================ Recent Area  =================-->
 {% endblock %}
