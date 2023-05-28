@@ -21,9 +21,14 @@ from mysite import views
 urlpatterns = [
     path('', views.index),
     path('about/', views.about),
+<<<<<<< HEAD
     path('backtesting/', views.backtesting),
     path('stockAnalysis/', views.stockAnalysis),
+=======
+    path('index/', views.index),
+>>>>>>> 716483e160c3765cc440d982a7a9243217225060
     path('test/', views.test),
     path('update/', views.update),
     path('admin/', admin.site.urls),
+    path('update_history_data/', views.update_history_data),
 ]

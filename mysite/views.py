@@ -1,10 +1,14 @@
 import datetime
+import threading
+import time
+
+import pandas as pd
+import yfinance as yf
 from mysite.average import  *
 from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
-import yfinance
 # Create your views here.
 def stockAnalysis(request):
     stocks = Stock_name.objects.all()
@@ -22,21 +26,39 @@ def about(request):
     
     return render(request, 'about.html', locals())
 
-def update_history_data():
+def update_history_data(request):
+    th = threading.Thread(target=update_history,  name="update_history")
+    th.start()
+    return HttpResponse("<h1>Updateing history data.</h1>")
+
+
+def update_history():
     Daily_transaction_information.objects.all().delete()
     Stock_name.objects.all().delete()
+    Daily_transaction_information.objects.all().delete()
     url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
     data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
+    # get stock name
     for r in data:
         item = Stock_name(
             stock_id=r[0][1:-1],
             name= r[1][1:-1]
         )
         item.save()
-    data = Stock_name.objects.all()
-    # for d in data:
-
-
+    for r in data:
+        data = yf.download(f"{r[0][1:-1]}.TW", start="2022-5-1", end=str(datetime.date.today()))
+        for index, row in data.iterrows():
+            new_item = Daily_transaction_information(
+                stock_id=r[0][1:-1],
+                TradeVolume=row[5],
+                date = pd.to_datetime(index).date(),
+                HighestPrice=row[1],
+                LowestPrice=row[2],
+                ClosingPrice=row[3]
+            )
+            new_item.save()
+        print(f"{r[0][1:-1]}.TW update.")
+        time.sleep(10)
 
 def update(request):
 
@@ -53,7 +75,11 @@ def update(request):
         # no data
         if r[5] == '""' or r[6] == '""' or r[7] == '""':
             continue
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 716483e160c3765cc440d982a7a9243217225060
         new_data = Daily_transaction_information(
             stock_id=r[0][1:-1],
             TradeVolume = int(r[2][1:-1]),
@@ -64,26 +90,6 @@ def update(request):
         )
         new_data.save()
 
-
-    # name_url = "https://openapi.twse.com.tw/v1/opendata/t187ap03_P"
-    # data = json.loads(requests.get(name_url).text)
-    # Stock_name.objects.all().delete()
-    # for d in data:
-    #     new_item = Stock_name(
-    #         stock_id=d["公司代號"],
-    #         name=d["公司名稱"]
-    #     )
-    #     new_item.save()
-    # name_url = "https://openapi.twse.com.tw/v1/opendata/t187ap03_L"
-    # data = json.loads(requests.get(name_url).text)
-    # for d in data:
-    #     new_item = Stock_name(
-    #         stock_id=d["公司代號"],
-    #         name=d["公司名稱"]
-    #     )
-    #     new_item.save()
-    #
-    # print("update stock_name")
     return HttpResponse("<h1>updte stock data</h1>")
 
 def test(request):
