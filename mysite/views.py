@@ -75,11 +75,7 @@ def update(request):
         # no data
         if r[5] == '""' or r[6] == '""' or r[7] == '""':
             continue
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 716483e160c3765cc440d982a7a9243217225060
+              
         new_data = Daily_transaction_information(
             stock_id=r[0][1:-1],
             TradeVolume = int(r[2][1:-1]),
