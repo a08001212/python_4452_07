@@ -52,6 +52,7 @@ def update_history():
                 stock_id=r[0][1:-1],
                 TradeVolume=row[5],
                 date = pd.to_datetime(index).date(),
+                OpeningPrice=row[0],
                 HighestPrice=row[1],
                 LowestPrice=row[2],
                 ClosingPrice=row[3]
@@ -81,7 +82,8 @@ def update(request):
             HighestPrice=float(r[5][1:-1]),
             LowestPrice=float(r[6][1:-1]),
             ClosingPrice=float(r[7][1:-1]),
-            date= datetime.date.today()
+            date= datetime.date.today(),
+            OpeningPrice=float(r[4][1:-1])
         )
         new_data.save()
 
