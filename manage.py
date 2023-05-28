@@ -5,7 +5,6 @@ import sys
 import threading
 import time, requests, datetime
 
-<<<<<<< HEAD
 # def view_update()->None:
 #     # waiting for django start website
 #     print("In threading")
@@ -14,19 +13,6 @@ import time, requests, datetime
 #         requests.get("http://127.0.0.1:8000/update")
 #         # waiting for one day
 #         time.sleep(24 * 60 * 60)
-=======
-
-def view_update()->None:
-    # waiting for django start website
-    print("In threading")
-    time.sleep(5)
-    while True:
-        # not weekend
-        if datetime.date.today().weekday() != 5 and datetime.date.today().weekday() != 6:
-            requests.get("http://127.0.0.1:8000/update")
-        # waiting for one day
-        time.sleep(24 * 60 * 60)
->>>>>>> 716483e160c3765cc440d982a7a9243217225060
 
 
 
