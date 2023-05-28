@@ -20,8 +20,10 @@
                 <div class="col-md-4">
                     <div class="book_tabel_item">
                         <div class="input-group">
-                            <input placeholder="請輸入股票代碼" list="id" name="MyArea" type="text" class="col-sm-12 custom-select custom-select-sm" style = "height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;"/>
-                            <datalist class="wide" id ="id">
+                            <input placeholder="請輸入股票代碼" required="required" list="id" name="stock_id" type="text"
+                                class="col-sm-12 custom-select custom-select-sm"
+                                style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
+                            <datalist class="wide" id="id">
                                 {% for stock in stocks%}
                                 <option value="{{stock.stock_id}}">{{stock.name}}</option>
                                 {% endfor %}
@@ -33,4 +35,5 @@
         </div>
     </div>
 </section>
+
 {% endblock %}

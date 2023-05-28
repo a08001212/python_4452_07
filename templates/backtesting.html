@@ -46,7 +46,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="MyArea"
+                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="stock_id"
                                             type="text" class="col-sm-12 custom-select custom-select-sm"
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                         <datalist class="wide" id="stock_id">
@@ -74,6 +74,81 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<!-- 長條圖顯示的位置 -->
+<section class="about_history_area section_gap" style="background-color: #ffffff;">
+    <div class="container">
+        <canvas id="myChart"></canvas>
+    </div>
+</section>
+<!-- 長條圖的原始程式碼, 可以移除掉長條圖就會消失 -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const chartElement = document.getElementById('myChart');
+    const data = {
+        labels: [
+            '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日',
+        ],
+        datasets: [{
+            label: '參加人數',
+            data: [160, 130, 140, 160, 170, 200, 180],
+        }]
+    };
+    new Chart(chartElement, {
+        type: 'line',
+        data: data,
+    });
+</script>
+
+<!-- 回測資料 -->
+<section class="about_history_area section_gap" style="background-color: #F8F8FF;">
+    <div class="container">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Profit</th>
+                    <th>Transaction funds</th>
+                    <th>Holding price</th>
+                    <th>Number of shares held</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Shad Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>51</td>
+                    <td>2008-11-13</td>
+                </tr>
+                <tr>
+                    <td>Michael Bruce</td>
+                    <td>Javascript Developer</td>
+                    <td>Singapore</td>
+                    <td>29</td>
+                    <td>2011-06-27</td>
+                </tr>
+                <tr>
+                    <td>Donna Snider</td>
+                    <td>Customer Support</td>
+                    <td>New York</td>
+                    <td>27</td>
+                    <td>2011-01-25</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Date</th>
+                    <th>Profit</th>
+                    <th>Transaction funds</th>
+                    <th>Holding price</th>
+                    <th>Number of shares held</th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </section>
 {% endblock %}
