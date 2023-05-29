@@ -2,11 +2,7 @@ import datetime
 import threading
 import time
 from typing import Any
-
 import numpy as np
-from FinMind import strategies
-from FinMind.data import DataLoader
-from FinMind.strategies.base import Strategy
 from pandas import Series, DataFrame
 from ta.momentum import StochasticOscillator
 import pandas as pd
@@ -16,7 +12,14 @@ from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
+<<<<<<< HEAD
 
+=======
+from ta.trend import SMAIndicator
+from FinMind import strategies
+from FinMind.data import DataLoader
+from FinMind.strategies.base import Strategy
+>>>>>>> 3be3b197ddd0a1ef550614c74f95410bb8789aa8
 # Create your views here.
 def stockAnalysis(request):
     stocks = Stock_name.objects.all()
@@ -177,4 +180,76 @@ def Kd():
     trade_detail: Series | DataFrame | Any = trade_detail[
         ['股票代碼', '日期', '當下獲利', '已實現損益', '未實現損益', '持有成本(股)', '持有股數', '成交價格', '交易資金']]
     # return trade_detail.values.tolist()
+    return final_stats.values.tolist()[-2], trade_detail.values.tolist()
+
+def Bisa():
+    data_loader = DataLoader()
+    data_loader.login('CHUN', 'kaikai8243')  # 可選
+    obj = strategies.BackTest(
+        stock_id="0056",
+        start_date="2018-01-01",
+        end_date="2019-01-01",
+        trader_fund=500000.0,
+        fee=0.001425,
+        data_loader=data_loader,
+    )
+
+    '''
+    乖離率策略是觀察股價偏離移動平均線(MA線)的程度來決定是否進場
+            負乖離表示股價 低 於過去一段時間平均價，意味著股價相對過去 低 ，所以選擇進場
+            正乖離表示股價 高 於過去一段時間平均價，意味著股價相對過去 高 ，所以選擇出場
+    進出場策略:
+    負乖離 < -7，出場。正乖離 > 8，進場。
+    '''
+
+    class BIAS(Strategy):
+        ma_days = 24
+        bias_lower = -7
+        bias_upper = 8
+
+        def create_trade_sign(self, stock_price: pd.DataFrame) -> pd.DataFrame:
+            stock_price = stock_price.sort_values("date")
+            stock_price[f"ma{self.ma_days}"] = SMAIndicator(
+                stock_price["close"], self.ma_days
+            ).sma_indicator()
+            stock_price["bias"] = (
+                                          (stock_price["close"] - stock_price[f"ma{self.ma_days}"])
+                                          / stock_price[f"ma{self.ma_days}"]
+                                  ) * 100
+            stock_price = stock_price.dropna()
+            stock_price.index = range(len(stock_price))
+            stock_price["signal"] = stock_price["bias"].map(
+                lambda x: 1
+                if x < self.bias_lower
+                else (-1 if x > self.bias_upper else 0)
+            )
+
+            stock_price["signal"] = stock_price["signal"].fillna(0)
+            return stock_price
+
+    obj.add_strategy(BIAS)
+    obj.simulate()
+    trade_detail = obj.trade_detail
+    final_stats = obj.final_stats
+    final_stats.rename(index={'MeanProfit': '中間收益',
+                              'MaxLoss': '最大損失',
+                              'FinalProfit': '最終收益',
+                              'MeanProfitPer': '每股中間收益',
+                              'FinalProfitPer': '每股最終收益',
+                              'MaxLossPer': '每股最大損失',
+                              'AnnualReturnPer': '每股年利潤',
+                              'AnnualSharpRatio': '年夏普比率'}, inplace=True)
+    print(final_stats)
+    trade_detail.rename(columns={'stock_id': '股票代碼',
+                                 'date': '日期',
+                                 'EverytimeProfit': '當下獲利',
+                                 'RealizedProfit': '已實現損益',
+                                 'UnrealizedProfit': '未實現損益',
+                                 'hold_cost': '持有成本(股)',
+                                 'hold_volume': '持有股數',
+                                 'trade_price': '成交價格',
+                                 'trader_fund': '交易資金'}, inplace=True)
+    trade_detail = trade_detail[
+        ['股票代碼', '日期', '當下獲利', '已實現損益', '未實現損益', '持有成本(股)', '持有股數', '成交價格',
+         '交易資金']]
     return final_stats.values.tolist()[-2], trade_detail.values.tolist()
