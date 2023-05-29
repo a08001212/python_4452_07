@@ -1,10 +1,13 @@
 import datetime
 import threading
 import time
+from typing import Any
+
 import numpy as np
 from FinMind import strategies
 from FinMind.data import DataLoader
 from FinMind.strategies.base import Strategy
+from pandas import Series, DataFrame
 from ta.momentum import StochasticOscillator
 import pandas as pd
 import yfinance as yf
@@ -66,7 +69,7 @@ def update_history():
         time.sleep(10)
 
 def update(request):
-    
+
     url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
     data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
     Stock_name.objects.all().delete()
@@ -97,11 +100,11 @@ def update(request):
 def test(request):
     return render(request, 'test.html', locals())
 
-def Kd(request):
+def Kd():
     data_loader = DataLoader()
-    # data_loader.login('CHUN', 'kaikai8243') # 可選
+    data_loader.login('CHUN', 'kaikai8243')  # 可選
     obj = strategies.BackTest(
-        stock_id="0056",
+        stock_id="0050",
         start_date="2018-01-01",
         end_date="2019-01-01",
         trader_fund=1000000.0,
@@ -109,7 +112,14 @@ def Kd(request):
         data_loader=data_loader,
     )
 
-    class getKd(Strategy):
+    '''
+    Kd 隨機指標:
+    是技術分析中的一種動量分析方法，採用超買和超賣的概念，由喬治·萊恩在1950年代推廣使用。指標通過比較收盤價格和價格的波動範圍，預測價格趨勢逆轉的時間。
+    進出場策略:
+    日K線 < 20 進場，> 80 出場
+    '''
+
+    class KD(Strategy):
         kdays = 9
         kd_upper = 80
         kd_lower = 20
@@ -140,7 +150,8 @@ def Kd(request):
             stock_price.loc[stock_price["K"] >= self.kd_upper, "signal"] = -1
             return stock_price
 
-    obj.add_strategy(Kd)
+
+    obj.add_strategy(KD)
     obj.simulate()
     trade_detail = obj.trade_detail
     final_stats = obj.final_stats
@@ -152,9 +163,7 @@ def Kd(request):
                               'MaxLossPer': '每股最大損失',
                               'AnnualReturnPer': '每股年利潤',
                               'AnnualSharpRatio': '年夏普比率'}, inplace=True)
-    print(final_stats)
-
-    # print(obj.plot())
+    # print(final_stats)
     trade_detail.rename(columns={'stock_id': '股票代碼',
                                  'date': '日期',
                                  'EverytimeProfit': '當下獲利',
@@ -164,6 +173,7 @@ def Kd(request):
                                  'hold_volume': '持有股數',
                                  'trade_price': '成交價格',
                                  'trader_fund': '交易資金'}, inplace=True)
-
-
-    return trade_detail.values.tolist()
+    trade_detail: Series | DataFrame | Any = trade_detail[
+        ['股票代碼', '日期', '當下獲利', '已實現損益', '未實現損益', '持有成本(股)', '持有股數', '成交價格', '交易資金']]
+    # return trade_detail.values.tolist()
+    return final_stats.values.tolist()[-2], trade_detail.values.tolist()
