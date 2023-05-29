@@ -1,10 +1,14 @@
 import datetime
 import threading
 import time
-
+import numpy as np
+from FinMind import strategies
+from FinMind.data import DataLoader
+from FinMind.strategies.base import Strategy
+from ta.momentum import StochasticOscillator
 import pandas as pd
 import yfinance as yf
-from mysite.average import  *
+from mysite.average import *
 from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
@@ -62,7 +66,7 @@ def update_history():
         time.sleep(10)
 
 def update(request):
-
+    
     url = "https://www.twse.com.tw/exchangeReport/STOCK_DAY_ALL?response=open_data"
     data = [row.split(',') for row in requests.get(url).text.splitlines()[1:]]
     Stock_name.objects.all().delete()
@@ -92,3 +96,74 @@ def update(request):
 
 def test(request):
     return render(request, 'test.html', locals())
+
+def Kd(request):
+    data_loader = DataLoader()
+    # data_loader.login('CHUN', 'kaikai8243') # 可選
+    obj = strategies.BackTest(
+        stock_id="0056",
+        start_date="2018-01-01",
+        end_date="2019-01-01",
+        trader_fund=1000000.0,
+        fee=0.001425,
+        data_loader=data_loader,
+    )
+
+    class getKd(Strategy):
+        kdays = 9
+        kd_upper = 80
+        kd_lower = 20
+
+        def create_trade_sign(self, stock_price: pd.DataFrame) -> pd.DataFrame:
+            stock_price = stock_price.sort_values("date")
+            kd = StochasticOscillator(
+                high=stock_price["max"],
+                low=stock_price["min"],
+                close=stock_price["close"],
+                n=self.kdays,
+            )
+            rsv_ = kd.stoch().fillna(50)
+            _k = np.zeros(stock_price.shape[0])
+            _d = np.zeros(stock_price.shape[0])
+            for i, r in enumerate(rsv_):
+                if i == 0:
+                    _k[i] = 50
+                    _d[i] = 50
+                else:
+                    _k[i] = _k[i - 1] * 2 / 3 + r / 3
+                    _d[i] = _d[i - 1] * 2 / 3 + _k[i] / 3
+            stock_price["K"] = _k
+            stock_price["D"] = _d
+            stock_price.index = range(len(stock_price))
+            stock_price["signal"] = 0
+            stock_price.loc[stock_price["K"] <= self.kd_lower, "signal"] = 1
+            stock_price.loc[stock_price["K"] >= self.kd_upper, "signal"] = -1
+            return stock_price
+
+    obj.add_strategy(Kd)
+    obj.simulate()
+    trade_detail = obj.trade_detail
+    final_stats = obj.final_stats
+    final_stats.rename(index={'MeanProfit': '中間收益',
+                              'MaxLoss': '最大損失',
+                              'FinalProfit': '最終收益',
+                              'MeanProfitPer': '每股中間收益',
+                              'FinalProfitPer': '每股最終收益',
+                              'MaxLossPer': '每股最大損失',
+                              'AnnualReturnPer': '每股年利潤',
+                              'AnnualSharpRatio': '年夏普比率'}, inplace=True)
+    print(final_stats)
+
+    # print(obj.plot())
+    trade_detail.rename(columns={'stock_id': '股票代碼',
+                                 'date': '日期',
+                                 'EverytimeProfit': '當下獲利',
+                                 'RealizedProfit': '已實現損益',
+                                 'UnrealizedProfit': '未實現損益',
+                                 'hold_cost': '持有成本(股)',
+                                 'hold_volume': '持有股數',
+                                 'trade_price': '成交價格',
+                                 'trader_fund': '交易資金'}, inplace=True)
+
+
+    return trade_detail.values.tolist()
