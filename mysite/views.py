@@ -12,14 +12,11 @@ from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
-<<<<<<< HEAD
-
-=======
-from ta.trend import SMAIndicator
 from FinMind import strategies
 from FinMind.data import DataLoader
 from FinMind.strategies.base import Strategy
->>>>>>> 3be3b197ddd0a1ef550614c74f95410bb8789aa8
+from ta.trend import SMAIndicator
+
 # Create your views here.
 def stockAnalysis(request):
     stocks = Stock_name.objects.all()
@@ -27,6 +24,24 @@ def stockAnalysis(request):
 
 def backtesting(request):
     stocks = Stock_name.objects.all()
+    details = []
+    profit = 0.1
+    
+    try:
+        strategy = request.GET['strategy']
+        id = request.GET['id']
+        sDate = request.GET['sDate'][0:10]
+        eDate = request.GET['eDate'][0:10]
+        fund = request.GET['fund']
+            
+
+        if strategy == 'strategy 1':
+            profit, details = Kd(id, sDate, eDate, fund)
+
+    except:
+        print("request.GET has wrong")
+    TableBool = len(details) > 0
+
     return render(request, 'backtesting.html', locals())
 
 
@@ -104,17 +119,18 @@ def update(request):
 def test(request):
     return render(request, 'test.html', locals())
 
-def Kd():
+def Kd(id, sDate, eDate, fund):
     data_loader = DataLoader()
     data_loader.login('CHUN', 'kaikai8243')  # 可選
     obj = strategies.BackTest(
-        stock_id="0050",
-        start_date="2018-01-01",
-        end_date="2019-01-01",
-        trader_fund=1000000.0,
+        stock_id=id,
+        start_date=sDate,
+        end_date=eDate,
+        trader_fund=int(fund),
         fee=0.001425,
         data_loader=data_loader,
     )
+    # print("資料存取正常")
 
     '''
     Kd 隨機指標:
@@ -168,6 +184,7 @@ def Kd():
                               'AnnualReturnPer': '每股年利潤',
                               'AnnualSharpRatio': '年夏普比率'}, inplace=True)
     # print(final_stats)
+    # print("中間測試")
     trade_detail.rename(columns={'stock_id': '股票代碼',
                                  'date': '日期',
                                  'EverytimeProfit': '當下獲利',

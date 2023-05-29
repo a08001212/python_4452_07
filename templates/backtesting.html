@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="boking_table">
-                        <form class="row" method="post">
-                            {% csrf_token %}
+                        <form class="row" >
+                            <!-- {% csrf_token %} -->
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
@@ -46,7 +46,7 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="stock_id"
+                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="id"
                                             type="text" class="col-sm-12 custom-select custom-select-sm"
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                         <datalist class="wide" id="stock_id">
@@ -65,8 +65,18 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
-                                    <div class="input-group" style="height: 15px;"></div>
-                                    <input type="submit" placeholder="送出" class="book_now_btn button_hover">
+                                    <div class="input-group">
+                                        <input placeholder="請選擇策略" required="required" list="strategys" name="strategy"
+                                            type="text" class="col-sm-12 custom-select custom-select-sm"
+                                            style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
+                                        <datalist class="wide" id="strategys">
+                                            <option value="strategy 1">KD</option>
+                                            <option value="strategy 2">Bias</option>
+                                        </datalist>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="submit" placeholder="送出" class="book_now_btn button_hover">
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -93,7 +103,7 @@
             '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日',
         ],
         datasets: [{
-            label: '參加人數',
+            label: '獲益',
             data: [160, 130, 140, 160, 170, 200, 180],
         }]
     };
@@ -104,51 +114,50 @@
 </script>
 
 <!-- 回測資料 -->
-<section class="about_history_area section_gap" style="background-color: #F8F8FF;">
-    <div class="container">
-        <table id="example" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Profit</th>
-                    <th>Transaction funds</th>
-                    <th>Holding price</th>
-                    <th>Number of shares held</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Shad Decker</td>
-                    <td>Regional Director</td>
-                    <td>Edinburgh</td>
-                    <td>51</td>
-                    <td>2008-11-13</td>
-                </tr>
-                <tr>
-                    <td>Michael Bruce</td>
-                    <td>Javascript Developer</td>
-                    <td>Singapore</td>
-                    <td>29</td>
-                    <td>2011-06-27</td>
-                </tr>
-                <tr>
-                    <td>Donna Snider</td>
-                    <td>Customer Support</td>
-                    <td>New York</td>
-                    <td>27</td>
-                    <td>2011-01-25</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Date</th>
-                    <th>Profit</th>
-                    <th>Transaction funds</th>
-                    <th>Holding price</th>
-                    <th>Number of shares held</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-</section>
+{% if TableBool %}
+    <section class="about_history_area section_gap" style="background-color: #F8F8FF;">
+        <div class="container">
+            <table id="example" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>EverytimeProfit</th>
+                        <th>RealizedProfit</th>
+                        <th>UnrealizedProfit</th>
+                        <th>hold_cost</th>
+                        <th>hold_volume</th>
+                        <th>trade_price</th>
+                        <th>trader_fund</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in details%}
+                    <tr>
+                        <td>{{detail.1}}</td>
+                        <td>{{detail.2}}</td>
+                        <td>{{detail.3}}</td>
+                        <td>{{detail.4}}</td>
+                        <td>{{detail.5}}</td>
+                        <td>{{detail.6}}</td>
+                        <td>{{detail.7}}</td>
+                        <td>{{detail.8}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Date</th>
+                        <th>EverytimeProfit</th>
+                        <th>RealizedProfit</th>
+                        <th>UnrealizedProfit</th>
+                        <th>hold_cost</th>
+                        <th>hold_volume</th>
+                        <th>trade_price</th>
+                        <th>trader_fund</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </section>
+{% endif %}
 {% endblock %}
