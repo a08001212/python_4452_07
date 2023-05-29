@@ -16,6 +16,7 @@ from django.shortcuts import render
 import requests, json
 from django.http import HttpResponse
 from mysite.models import *
+
 # Create your views here.
 def stockAnalysis(request):
     stocks = Stock_name.objects.all()
