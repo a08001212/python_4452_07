@@ -20,6 +20,7 @@ from mysite import views
 
 urlpatterns = [
     path('', views.index),
+    path('index/', views.index),
     path('about/', views.about),
     path('backtesting/', views.backtesting),
     path('stockAnalysis/', views.stockAnalysis),
