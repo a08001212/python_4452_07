@@ -37,7 +37,8 @@ def backtesting(request):
 
         if strategy == 'strategy 1':
             profit, details = Kd(id, sDate, eDate, fund)
-
+        elif strategy == 'strategy 2':
+            profit, details = Bisa(id, sDate, eDate, fund)
     except:
         print("request.GET has wrong")
     TableBool = len(details) > 0
@@ -199,14 +200,14 @@ def Kd(id, sDate, eDate, fund):
     # return trade_detail.values.tolist()
     return final_stats.values.tolist()[-2], trade_detail.values.tolist()
 
-def Bisa():
+def Bisa(id, sDate, eDate, fund):
     data_loader = DataLoader()
     data_loader.login('CHUN', 'kaikai8243')  # 可選
     obj = strategies.BackTest(
-        stock_id="0056",
-        start_date="2018-01-01",
-        end_date="2019-01-01",
-        trader_fund=500000.0,
+        stock_id=id,
+        start_date=sDate,
+        end_date=eDate,
+        trader_fund=int(fund),
         fee=0.001425,
         data_loader=data_loader,
     )

@@ -100,12 +100,61 @@
     const chartElement = document.getElementById('myChart');
     const data = {
         labels: [
-            '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日',
+            {% for detail in details%}
+            '{{detail.1}}',
+            {% endfor %}
         ],
-        datasets: [{
-            label: '獲益',
-            data: [160, 130, 140, 160, 170, 200, 180],
-        }]
+        datasets: [
+            {
+                label: 'EverytimeProfit',
+                data: [
+                    {% for detail in details%}
+                    {{detail.2}},
+                    {% endfor %}
+                ]
+            },
+            {
+                label: 'RealizedProfit',
+                data: [
+                    {% for detail in details%}
+                    {{detail.3}},
+                    {% endfor %}
+                ]
+            },
+            {
+                label: 'UnrealizedProfit',
+                data: [
+                    {% for detail in details%}
+                    {{detail.4}},
+                    {% endfor %}
+                ]
+            },
+            // {
+            //     label: 'hold_cost',
+            //     data: [
+            //         {% for detail in details%}
+            //         {{detail.5}},
+            //         {% endfor %}
+            //     ]
+            // },
+            {
+                label: 'hold_volume',
+                data: [
+                    {% for detail in details%}
+                    {{detail.6}},
+                    {% endfor %}
+                ]
+            }
+            // },
+            // {
+            //     label: 'trade_price',
+            //     data: [
+            //         {% for detail in details%}
+            //         {{detail.7}},
+            //         {% endfor %}
+            //     ]
+            // }
+        ]
     };
     new Chart(chartElement, {
         type: 'line',
