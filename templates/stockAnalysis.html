@@ -7,30 +7,7 @@
         </div> -->
         <div class="container">
             <div class="banner_content text-center">
-                <h2>個股分析</h2>
-            </div>
-        </div>
-    </div>
-    <div class="hotel_booking_area position">
-        <div class="container">
-            <div class="hotel_booking_table">
-                <div class="col-md-3">
-                    <h2>請輸入<br> 股票代碼</h2>
-                </div>
-                <div class="col-md-4">
-                    <div class="book_tabel_item">
-                        <div class="input-group">
-                            <input placeholder="請輸入股票代碼" required="required" list="id" name="stock_id" type="text"
-                                class="col-sm-12 custom-select custom-select-sm"
-                                style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
-                            <datalist class="wide" id="id">
-                                {% for stock in stocks%}
-                                <option value="{{stock.stock_id}}">{{stock.name}}</option>
-                                {% endfor %}
-                            </datalist>
-                        </div>
-                    </div>
-                </div>
+                <h2>所有股票分析</h2>
             </div>
         </div>
     </div>
