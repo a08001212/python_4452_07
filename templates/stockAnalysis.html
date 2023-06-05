@@ -35,5 +35,36 @@
         </div>
     </div>
 </section>
-
+<section class="about_history_area section_gap" style="background-color: #F8F8FF;">
+    <div class="container">
+        <table id="example" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>KD_Profit_rate</th>
+                    <th>Bisa_Profit_rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in details%}
+                <tr>
+                    <td>{{detail.stock_id}}</td>
+                    <td>{{detail.name}}</td>
+                    <td>{{detail.kd_profit_rate}}</td>
+                    <td>{{detail.bias_profit_rate}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>NAME</th>
+                    <th>KD_Profit_rate</th>
+                    <th>Bisa_Profit_rate</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
 {% endblock %}

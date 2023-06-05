@@ -19,7 +19,7 @@ from ta.trend import SMAIndicator
 
 # Create your views here.
 def stockAnalysis(request):
-    stocks = Stock_name.objects.all()
+    details = Stock_profit_rates.objects.all()
     return render(request, 'stockAnalysis.html', locals())
 
 def backtesting(request):
@@ -120,7 +120,31 @@ def update(request):
 def test(request):
     return render(request, 'test.html', locals())
 
-def Kd(id, sDate, eDate, fund):
+def update_profit_rates(request):
+    Stock_profit_rates.objects.all().delete()
+    eDate = str(datetime.datetime.now())[0:10]
+    index = 0
+
+    for s in Stock_name.objects.all():
+        try:
+            index += 1
+            if(index % 70 == 0):
+                time.sleep(3600)
+
+            item = Stock_profit_rates(
+                stock_id=s.stock_id,
+                name= s.name,
+                kd_profit_rate = Kd(s.stock_id, "2020-01-01", eDate, 100000, 1),
+                bias_profit_rate = Bisa(s.stock_id, "2020-01-01", eDate, 100000, 1)
+            )
+            item.save()
+            print("data" + str(index))
+        except:
+            continue
+
+    return HttpResponse("<h1>updte stock profit_rates</h1>")
+
+def Kd(id, sDate, eDate, fund, mode=0):
     data_loader = DataLoader()
     data_loader.login('CHUN', 'kaikai8243')  # 可選
     obj = strategies.BackTest(
@@ -198,9 +222,12 @@ def Kd(id, sDate, eDate, fund):
     trade_detail: Series | DataFrame | Any = trade_detail[
         ['股票代碼', '日期', '當下獲利', '已實現損益', '未實現損益', '持有成本(股)', '持有股數', '成交價格', '交易資金']]
     # return trade_detail.values.tolist()
-    return final_stats.values.tolist()[-2], trade_detail.values.tolist()
+    if mode == 0:
+        return final_stats.values.tolist()[-2], trade_detail.values.tolist()
+    else:
+        return final_stats.values.tolist()[-2]
 
-def Bisa(id, sDate, eDate, fund):
+def Bisa(id, sDate, eDate, fund, mode=0):
     data_loader = DataLoader()
     data_loader.login('CHUN', 'kaikai8243')  # 可選
     obj = strategies.BackTest(
@@ -270,4 +297,7 @@ def Bisa(id, sDate, eDate, fund):
     trade_detail = trade_detail[
         ['股票代碼', '日期', '當下獲利', '已實現損益', '未實現損益', '持有成本(股)', '持有股數', '成交價格',
          '交易資金']]
-    return final_stats.values.tolist()[-2], trade_detail.values.tolist()
+    if mode == 0:
+        return final_stats.values.tolist()[-2], trade_detail.values.tolist()
+    else:
+        return final_stats.values.tolist()[-2]

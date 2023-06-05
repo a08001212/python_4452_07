@@ -4,4 +4,4 @@ from mysite import models         # 從mysite資料夾底下匯入models.py裡�
 # Register your models here.
 admin.site.register(models.Stock_name)
 admin.site.register(models.Daily_transaction_information)
-
+admin.site.register(models.Stock_profit_rates)

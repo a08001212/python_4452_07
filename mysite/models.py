@@ -16,3 +16,8 @@ class Daily_transaction_information(models.Model):
     OpeningPrice = models.FloatField(default=.0)
     # MA5 MA10 MA20
 
+class Stock_profit_rates(models.Model):
+    stock_id = models.CharField(max_length=10, default="0")
+    name = models.CharField(max_length=100, default="undef")
+    kd_profit_rate = models.FloatField(default=0.0)
+    bias_profit_rate = models.FloatField(default=0.0)

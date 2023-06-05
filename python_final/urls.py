@@ -28,4 +28,5 @@ urlpatterns = [
     path('update/', views.update),
     path('admin/', admin.site.urls),
     path('update_history_data/', views.update_history_data),
+    path('update_profit_rates/', views.update_profit_rates),
 ]
