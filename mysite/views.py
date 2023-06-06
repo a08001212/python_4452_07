@@ -26,21 +26,20 @@ def backtesting(request):
     stocks = Stock_name.objects.all()
     details = []
     profit = 0.1
-    
     try:
         strategy = request.GET['strategy']
         id = request.GET['id']
-        sDate = request.GET['sDate'][0:10]
-        eDate = request.GET['eDate'][0:10]
+        sDate = request.GET['sDate']
+        eDate = request.GET['eDate']
         fund = request.GET['fund']
-            
+                
 
         if strategy == 'strategy 1':
-            profit, details = Kd(id, sDate, eDate, fund)
+                profit, details = Kd(id, sDate, eDate, fund)
         elif strategy == 'strategy 2':
             profit, details = Bisa(id, sDate, eDate, fund)
     except:
-        print("request.GET has wrong")
+         print("request.GET has wrong")
     TableBool = len(details) > 0
 
     return render(request, 'backtesting.html', locals())
