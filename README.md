@@ -15,7 +15,6 @@ cd python_4452_07
 pip install -r requirements.txt
 python manage.py runserver
 ```
-If you want stop auto update data please delete `th.start()` at manage.py
 <hr>
 <a href = "https://docs.google.com/presentation/d/1OEBRdMucaJTpdA3fvYH1YB97jrlw4BZLTMsOxadRy3E/edit?usp=sharing
 ">總彙整報告.pptx</a>
