@@ -23,6 +23,7 @@ def stockAnalysis(request):
     return render(request, 'stockAnalysis.html', locals())
 
 def backtesting(request):
+    nDate = str(time.strftime("%Y-%m-%d", time.localtime()) )
     stocks = Stock_name.objects.all()
     details = []
     profit = 0.1
@@ -118,6 +119,53 @@ def update(request):
 
 def test(request):
     return render(request, 'test.html', locals())
+
+def moreBacktesting(request):
+    nDate = str(time.strftime("%Y-%m-%d", time.localtime()) )
+    stocks = Stock_name.objects.all()
+    details = []
+    profit = 0.1
+    chooseStockDatas = "None"
+    chooseStocks = ""
+
+    if "id" in request.POST:
+        id = request.POST['id']
+        chooseStockDatas = "{},{}".format(str(request.POST["chooseStocks"]), str(id))
+        chooseStocks = set(chooseStockDatas.split(","))
+        chooseStocks.discard("None")
+        chooseStocks = sorted(list(chooseStocks))
+    if "fund" in request.POST and "chooseStocks" in request.POST and request.POST["chooseStocks"] != "None":
+        strategy = request.POST['strategy']
+        sDate = request.POST['sDate']
+        eDate = request.POST['eDate']
+        fund = request.POST['fund']
+        chooseStockDatas = str(request.POST["chooseStocks"])
+        chooseStocks = set(chooseStockDatas.split(","))
+        chooseStocks.discard("None")
+        chooseStocks = sorted(list(chooseStocks))
+
+        profits = []
+        detailses = []
+        
+        print("good")
+        for id in chooseStocks:
+            print("good")
+            if strategy == 'strategy 1':
+                profit, details = Kd(id, sDate, eDate, fund)
+            elif strategy == 'strategy 2':
+                profit, details = Bisa(id, sDate, eDate, fund)
+            
+            profits.append(profit)
+            detailses.append([id, details])
+    else:
+         print("test1")
+    TableBool = len(details) > 0
+    
+    # test = {"chooseStcks" : chooseStocks}
+    # for x, y in test.items():
+    #     print("{} : {}".format(x, y))
+
+    return render(request, 'moreBacktesting.html', locals())
 
 def update_profit_rates(request):
     Stock_profit_rates.objects.all().delete()

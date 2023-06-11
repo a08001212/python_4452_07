@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('update_history_data/', views.update_history_data),
     path('update_profit_rates/', views.update_profit_rates),
+    path('moreBacktesting/', views.moreBacktesting),
 ]

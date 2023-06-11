@@ -2,16 +2,16 @@
 {% block content %}
 <!--================Banner Area =================-->
 <section class="banner_area">
-    <div class="booking_table d_flex align-items-center" style="min-height: 450px">
+    <div class="booking_table d_flex align-items-center" style="min-height: 530px">
         <!-- <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="">
         </div> -->
         <div class="container">
             <div class="banner_content text-center">
-                <h2>個股分析</h2>
+                <h2>多股分析</h2>
             </div>
         </div>
     </div>
-    <div class="hotel_booking_area position">
+    <div class="hotel_booking_area position" style="height:482px; top: 250px">
         <div class="container">
             <div class="hotel_booking_table">
                 <div class="col-md-3">
@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-md-9">
                     <div class="boking_table">
-                        <form class="row" >
-                            <!-- {% csrf_token %} -->
+                        <form class="row" method="post">
+                            {% csrf_token %}
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
@@ -42,47 +42,73 @@
                             <div class="col-md-4">
                                 <div class="book_tabel_item">
                                     <div class="input-group">
-                                        <input placeholder="請輸入股票代碼" required="required" list="stock_id" name="id"
-                                            type="text" class="col-sm-12 custom-select custom-select-sm"
-                                            style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
-                                        <datalist class="wide" id="stock_id">
-                                            {% for stock in stocks%}
-                                            <option value="{{stock.stock_id}}">{{stock.name}}</option>
-                                            {% endfor %}
-                                        </datalist>
-                                    </div>
-                                    <div class="input-group">
                                         <input name="fund" required="required" placeholder="請輸入你的資金" min="0"
-                                            oninput="if(value<0)value=0" type="number"
+                                            oninput="if(value<0)value=0" type="number" value ={{fund}}
                                             class="col-sm-12 custom-select custom-select-sm"
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="book_tabel_item">
                                     <div class="input-group">
                                         <input placeholder="請選擇策略" required="required" list="strategys" name="strategy"
-                                            type="text" class="col-sm-12 custom-select custom-select-sm"
+                                            type="text" class="col-sm-12 custom-select custom-select-sm" value = {{strategy}}
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                         <datalist class="wide" id="strategys">
                                             <option value="strategy 1">KD</option>
                                             <option value="strategy 2">Bias</option>
                                         </datalist>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="book_tabel_item">
                                     <div class="input-group">
                                         <input type="submit" placeholder="送出" class="book_now_btn button_hover">
                                     </div>
                                 </div>
+                                <input type="hidden" name="chooseStocks" value = "{{chooseStockDatas}}">
+                            </form>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="book_tabel_item">
+                                        <div class="input-group">
+                                            <div style = "width:60%">
+                                                <div class="input-group">
+                                                    <input placeholder="請選擇股票代碼" required="required" list="stock_id" name="id"
+                                                        type="text" class="col-sm-12 custom-select custom-select-sm"
+                                                        style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
+                                                    <datalist class="wide" id="stock_id">
+                                                        {% for stock in stocks%}
+                                                        <option value="{{stock.stock_id}}">{{stock.name}}</option>
+                                                        {% endfor %}
+                                                    </datalist>
+                                                </div>                                        </div>
+                                            <div style = "width:5%"></div>
+                                            <div style = "width:35%">
+                                                <input type="submit" placeholder="新增" value="新增" class="book_now_btn button_hover">
+                                                <input type="hidden" name="chooseStocks" value = "{{chooseStockDatas}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
+        <div class="container">
+            <div class="hotel_booking_table">
+                <div class="col-md-2"></div>
+                <div class="col-md-6" style="display: inline-block;">
+                    已選定股票: 
+                    {% for stock in chooseStocks %}
+                        {{stock}}
+                    {% endfor %}
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
     </div>
 </section>
-
 <!-- 長條圖顯示的位置 -->
 {% if TableBool %}
 <section class="about_history_area section_gap" style="background-color: #ffffff;">
@@ -102,55 +128,16 @@
             {% endfor %}
         ],
         datasets: [
+            {% for detailse in detailses %}
             {
-                label: 'EverytimeProfit',
+                label: '{{detailse.0}}',
                 data: [
-                    {% for detail in details%}
+                    {% for detail in detailse.1 %}
                     {{detail.2}},
                     {% endfor %}
-                ]
-            },
-            {
-                label: 'RealizedProfit',
-                data: [
-                    {% for detail in details%}
-                    {{detail.3}},
-                    {% endfor %}
-                ]
-            },
-            {
-                label: 'UnrealizedProfit',
-                data: [
-                    {% for detail in details%}
-                    {{detail.4}},
-                    {% endfor %}
-                ]
-            },
-            // {
-            //     label: 'hold_cost',
-            //     data: [
-            //         {% for detail in details%}
-            //         {{detail.5}},
-            //         {% endfor %}
-            //     ]
-            // },
-            {
-                label: 'hold_volume',
-                data: [
-                    {% for detail in details%}
-                    {{detail.6}},
-                    {% endfor %}
-                ]
-            }
-            // },
-            // {
-            //     label: 'trade_price',
-            //     data: [
-            //         {% for detail in details%}
-            //         {{detail.7}},
-            //         {% endfor %}
-            //     ]
-            // }
+                ]    
+            }{% if not forloop.last %},{% endif %}
+            {% endfor %}
         ]
     };
     new Chart(chartElement, {
@@ -160,11 +147,13 @@
 </script>
 
 <!-- 回測資料 -->
+
     <section class="about_history_area section_gap" style="background-color: #F8F8FF;">
         <div class="container">
             <table id="example" class="display" style="width:100%">
                 <thead>
                     <tr>
+                        <th>id</th>
                         <th>Date</th>
                         <th>EverytimeProfit</th>
                         <th>RealizedProfit</th>
@@ -176,8 +165,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for detail in details%}
+                    {% for detailse in detailses %}
+                    {% for detail in detailse.1 %}
                     <tr>
+                        <td>{{detailse.0}}</td>
                         <td>{{detail.1}}</td>
                         <td>{{detail.2}}</td>
                         <td>{{detail.3}}</td>
@@ -188,9 +179,11 @@
                         <td>{{detail.8}}</td>
                     </tr>
                     {% endfor %}
+                    {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
+                        <th>id</th>
                         <th>Date</th>
                         <th>EverytimeProfit</th>
                         <th>RealizedProfit</th>
