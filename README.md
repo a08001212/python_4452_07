@@ -26,6 +26,8 @@ If you want stop auto update data please delete `th.start()` at manage.py
 <a href = "https://docs.google.com/presentation/d/1EWqiuFph2sG-tbBGoQBU1l9pvIQ2xDvmWCeOBAhNPvI/edit?usp=sharing
 ">2023.05.22_進度報告.pptx</a>
 
+下載歷史資料請到 <a href = "127.0.0.1:8000/update_history_data/">127.0.0.1:8000/update_history_data</a>
+更新當日資料請到 <a href = "127.0.0.1:8000/update/">127.0.0.1:8000/update</a>
 
 
 
