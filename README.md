@@ -16,8 +16,9 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 <hr>
-下載歷史資料請到 <a href = "127.0.0.1:8000/update_history_data/">127.0.0.1:8000/update_history_data</a>
-更新當日資料請到 <a href = "127.0.0.1:8000/update/">127.0.0.1:8000/update</a>
+download the history datas：{<a href = "127.0.0.1:8000/update_history_data/">127.0.0.1:8000/update_history_data</a>}
+<br>
+update the daily data : {<a href = "127.0.0.1:8000/update/">127.0.0.1:8000/update</a>}
 <hr>
 <a href = "https://docs.google.com/presentation/d/1OEBRdMucaJTpdA3fvYH1YB97jrlw4BZLTMsOxadRy3E/edit?usp=sharing
 ">總彙整報告.pptx</a>
