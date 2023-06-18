@@ -1,75 +1,61 @@
 {% extends "base/base.html" %}
+{% block title %}Team 7 股票分析-首頁{% endblock %}
 {% block content %}
 <!--================Banner Area =================-->
 <section class="banner_area blog_banner d_flex align-items-center">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="" style="background:black;"></div>
     <div class="container">
         <div class="banner_content text-center">
-            <h4>Dude You’re Getting <br />a Telescope</h4>
-            <p>There is a moment in the life of any aspiring astronomer that it is time to buy that first</p>
-            <a href="#" class="btn white_btn button_hover">View More</a>
+            <h2>網站首頁</h2>
+            <h4>Index</h4>
+            <p>there is our index web, we are team 7.<br> our topic is about stock, welcome to this web.</p>
         </div>
     </div>
 </section>
 <!--================Banner Area =================-->
 <!--================ Accomodation Area  =================-->
-<section class="accomodation_area section_gap">
+<section class="testimonial_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">The functions</h2>
-            <p>We have these functions...</p>
+            <h2 class="title_color">Python 資料分析 股票網站</h2>
+            <p>以下列出本網站的各種功能，歡迎滑動查閱 </p>
         </div>
-        <div class="row mb_30">
-            <div class="col-lg-3 col-sm-6">
-                <div class="accomodation_item text-center">
-                    <div class="hotel_img">
-                        <img src="image/room1.jpg" alt="">
-                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
+        <div class="testimonial_slider owl-carousel">
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="../static/image/other/1.png" alt="" style = "height:120px; width:120px">
+                <div class="media-body">
+                    <a href="/backtesting/"><h4 class="sec_h4">個股分析</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
                     </div>
-                    <a href="/backtesting/">
-                        <h4 class="sec_h4">Stock Analysis</h4>
-                    </a>
-                    <h5>$250<small>/night</small></h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="accomodation_item text-center">
-                    <div class="hotel_img">
-                        <img src="image/room2.jpg" alt="">
-                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                    </div>
-                    <a href="/stockAnalysis/">
-                        <h4 class="sec_h4">All Stock Analysis</h4>
-                    </a>
-                    <h5>$200<small>/night</small></h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="accomodation_item text-center">
-                    <div class="hotel_img">
-                        <img src="image/room3.jpg" alt="">
-                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                    </div>
-                    <a href="#">
-                        <h4 class="sec_h4">Indivitual Stock Analysis</h4>
-                    </a>
-                    <h5>$750<small>/night</small></h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-sm-6">
-                <div class="accomodation_item text-center">
-                    <div class="hotel_img">
-                        <img src="image/room4.jpg" alt="">
-                        <a href="#" class="btn theme_btn button_hover">Book Now</a>
-                    </div>
-                    <a href="#">
-                        <h4 class="sec_h4">Admin</h4>
-                    </a>
-                    <h5>$200<small>/night</small></h5>
-                </div>
-            </div>
+                    <p>這裡可讓使用者輸入股票代碼、日期範圍、資金與其策略，藉此生成關於回測後的結果資料分析。</p>
+                  </div>
+            </div>   
+            <div class="media testimonial_item">
+              <img class="rounded-circle" src="../static/image/other/2.png" alt="" style = "height:120px; width:120px">
+              <div class="media-body">
+                  <a href="/moreBacktesting/"><h4 class="sec_h4">多股分析</h4></a>
+                  <div class="star">
+                      <a href="#"><i class="fa fa-star"></i></a>
+                      <a href="#"><i class="fa fa-star"></i></a>
+                  </div>
+                  <p>這裡可讓使用者輸入日期範圍、資金與其策略，並新增多個股票，進行多股分析。</p>
+              </div>
+            </div>  
+            <div class="media testimonial_item">
+              <img class="rounded-circle" src="../static/image/other/3.png" alt="" style = "height:120px; width:120px">
+              <div class="media-body">
+                  <a href="/stockAnalysis/"><h4 class="sec_h4">所有股分析</h4></a>
+                  <div class="star">
+                      <a href="#"><i class="fa fa-star"></i></a>
+                      <a href="#"><i class="fa fa-star"></i></a>
+                      <a href="#"><i class="fa fa-star"></i></a>
+                  </div>
+                  <p>這裡會顯示所有過去指定資料，所進行回測後，取得的各獲益率比較。</p>
+              </div>
+            </div>  
         </div>
     </div>
-</section>
+  </section>
 <!--================ Accomodation Area  =================-->
 {% endblock %}

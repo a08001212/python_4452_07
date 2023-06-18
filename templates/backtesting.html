@@ -1,4 +1,5 @@
 {% extends "base/base.html" %}
+{% block title %}Team7 股票分析-個股分析{% endblock %}
 {% block content %}
 <!--================Banner Area =================-->
 <section class="banner_area">
@@ -87,6 +88,20 @@
 {% if TableBool %}
 <section class="about_history_area section_gap" style="background-color: #ffffff;">
     <div class="container">
+        <p style="font-size: 18px;">
+            選定股票：{{id}}<br>
+            投入資金：{{fund}}<br>
+            回測時間：{{sDate}} ~ {{eDate}}<br>
+            選用策略：{{strategy}}<br>
+            總獲益率：{{profit}} %
+        </p>
+        <div class="booking_table d_flex align-items-center" style="min-height: 200px">
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2 style = "color:black;">回測圖表</h2>
+                </div>
+            </div>
+        </div>
         <canvas id="myChart"></canvas>
     </div>
 </section>
@@ -161,6 +176,13 @@
 
 <!-- 回測資料 -->
     <section class="about_history_area section_gap" style="background-color: #F8F8FF;">
+        <div class="booking_table d_flex align-items-center" style="min-height: 200px">
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2 style = "color:black;">回測明細</h2>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <table id="example" class="display" style="width:100%">
                 <thead>

@@ -19,10 +19,16 @@ from ta.trend import SMAIndicator
 
 # Create your views here.
 def stockAnalysis(request):
+    Astock = "active"
+    fund = 100000
+    sDate = "2020-01-01"
+    eDate = str(datetime.datetime.now())[0:10]
     details = Stock_profit_rates.objects.all()
     return render(request, 'stockAnalysis.html', locals())
 
 def backtesting(request):
+    Astock = "active"
+
     nDate = str(time.strftime("%Y-%m-%d", time.localtime()) )
     stocks = Stock_name.objects.all()
     details = []
@@ -47,10 +53,15 @@ def backtesting(request):
 
 
 def index(request):
+    index = "active"
     return render(request, 'index.html', locals())
 
+def qa(request):
+    qa = "active"
+    return render(request, 'q&a.html', locals())
+
 def about(request):
-    
+    about = "active"
     return render(request, 'about.html', locals())
 
 def update_history_data(request):
@@ -121,6 +132,7 @@ def test(request):
     return render(request, 'test.html', locals())
 
 def moreBacktesting(request):
+    Astock = "active"
     nDate = str(time.strftime("%Y-%m-%d", time.localtime()) )
     stocks = Stock_name.objects.all()
     details = []

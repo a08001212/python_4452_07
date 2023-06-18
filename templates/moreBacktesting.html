@@ -1,8 +1,9 @@
 {% extends "base/base.html" %}
+{% block title %}Team 7 股票分析-多股分析{% endblock %}
 {% block content %}
 <!--================Banner Area =================-->
 <section class="banner_area">
-    <div class="booking_table d_flex align-items-center" style="min-height: 530px">
+    <div class="booking_table d_flex align-items-center" style="min-height: 550px">
         <!-- <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background="">
         </div> -->
         <div class="container">
@@ -43,13 +44,13 @@
                                 <div class="book_tabel_item">
                                     <div class="input-group">
                                         <input name="fund" required="required" placeholder="請輸入你的資金" min="0"
-                                            oninput="if(value<0)value=0" type="number" value ={{fund}}
+                                            oninput="if(value<0)value=0" type="number" 
                                             class="col-sm-12 custom-select custom-select-sm"
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                     </div>
                                     <div class="input-group">
                                         <input placeholder="請選擇策略" required="required" list="strategys" name="strategy"
-                                            type="text" class="col-sm-12 custom-select custom-select-sm" value = {{strategy}}
+                                            type="text" class="col-sm-12 custom-select custom-select-sm" 
                                             style="height: 38px; border-color: #2b3146;color:#777; BACKGROUND-COLOR: transparent;;" />
                                         <datalist class="wide" id="strategys">
                                             <option value="strategy 1">KD</option>
@@ -90,7 +91,6 @@
                                     </div>
                                 </form>
                             </div>
-                        
                     </div>
                 </div>
             </div>
@@ -99,10 +99,12 @@
             <div class="hotel_booking_table">
                 <div class="col-md-2"></div>
                 <div class="col-md-6" style="display: inline-block;">
+                    <p style = "font-size:18px">
                     已選定股票: 
                     {% for stock in chooseStocks %}
                         {{stock}}
                     {% endfor %}
+                    </p>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -113,6 +115,20 @@
 {% if TableBool %}
 <section class="about_history_area section_gap" style="background-color: #ffffff;">
     <div class="container">
+        <p style="font-size: 18px;">
+            選定股票：{% for index in chooseStocks %}{{index}} {% endfor %}<br>
+            投入資金：{{fund}}<br>
+            回測時間：{{sDate}} ~ {{eDate}}<br>
+            選用策略：{{strategy}}<br>
+            總獲益率：{% for p in profits %}{{p}}% {% endfor %}
+        </p>
+        <div class="booking_table d_flex align-items-center" style="min-height: 200px">
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2 style = "color:black;">回測圖表</h2>
+                </div>
+            </div>
+        </div>
         <canvas id="myChart"></canvas>
     </div>
 </section>
@@ -149,6 +165,13 @@
 <!-- 回測資料 -->
 
     <section class="about_history_area section_gap" style="background-color: #F8F8FF;">
+        <div class="booking_table d_flex align-items-center" style="min-height: 200px">
+            <div class="container">
+                <div class="banner_content text-center">
+                    <h2 style = "color:black;">回測明細</h2>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <table id="example" class="display" style="width:100%">
                 <thead>
